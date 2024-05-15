@@ -1,7 +1,7 @@
 
 # LLM
 
-This repository contains scripts and resources for fine-tuning the Llama2 model with LoRA, evaluating its performance, and processing the output for punctuation restoration. The primary components include environment setup, model fine-tuning, output processing, and performance evaluation.
+This repository contains scripts and resources for fine-tuning the Llama2 model with LoRA, evaluating its performance, and processing the output for punctuation restoration. The primary components include environment setup, model fine-tuning, output processing, and performance evaluation. The script for utilizing Gemini-pro API by Google is also provided to compare SOTA LLM with our finetuned model in punctuation restoration for speech transcripts.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -18,7 +18,7 @@ To set up the Conda environment for this project, you will need to have Conda in
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/LLM.git
+   git clone https://github.com/charlieliu331/FYP-project/tree/main/LLM.git
    cd LLM
    ```
 
@@ -33,7 +33,7 @@ To set up the Conda environment for this project, you will need to have Conda in
    ```
 
 ### Acquiring Access to Llama2 Model
-To use the Llama2 model, you need to acquire access to the model weights from Hugging Face. Follow the instructions on the [Hugging Face website](https://huggingface.co/) to request access and obtain the necessary credentials.
+To use the Llama2 model, you need to acquire access to the model weights from Hugging Face. Follow the instructions on the [Hugging Face website](https://huggingface.co/docs/transformers/main/model_doc/llama2) to request access and obtain the necessary credentials.
 
 ## Getting Started
 
@@ -64,32 +64,25 @@ This file specifies the dependencies and environment configuration needed to run
 ### Fine-Tuning Llama2
 To fine-tune the Llama2 model using the `fine_tune_llama.py` script, run:
 ```bash
-python fine_tune_llama.py --config config.json
+python fine_tune_llama.py 
 ```
 Make sure to update the `config.json` with the appropriate parameters for your fine-tuning process.
 
 ### Extracting and Reinserting Punctuation
 To process the output and reinsert punctuation using the `extract_n_reinsert.py` script, run:
 ```bash
-python extract_n_reinsert.py --input output.txt --ground_truth ground_truth.txt
+python extract_n_reinsert.py 
 ```
 
 ### Calculating WER and SER
 To calculate the Word Error Rate (WER) and Sentence Error Rate (SER) using the `calculate_WER.py` script, run:
 ```bash
-python calculate_WER.py --hypothesis hypothesis.txt --reference reference.txt
+python calculate_WER.py 
 ```
 
 ### Evaluating Punctuation Restoration
 To evaluate the punctuation restoration performance using the `manual_eval_metrics.py` script, run:
 ```bash
-python manual_eval_metrics.py --predictions predictions.txt --ground_truth ground_truth.txt
+python manual_eval_metrics.py 
 ```
 
-## Contributing
-
-Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to contribute to this project.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
