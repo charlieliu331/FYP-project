@@ -1,5 +1,5 @@
-# TL Internship Project: SUD
-## Multilingual SBD using BERT models
+# pre-LLM
+## Multilingual puncutation restoration using XLM-RoBERTa model
 
 ## Table of contents
 * [Virtual environment](#virtual-environment)
@@ -109,6 +109,9 @@ Run the `main.py` file:
       --action ACTION 	train/val training or testing
           
     ```
+### Output punctuated text
+
+Run the 'generate_output/generate_output.py' to use the model to perform batch processing of punctuation resotoration.
 
 #### Sample code
 ```
