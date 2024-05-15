@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-us">  
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="brandname">
+            AutoPunctuation
+        </div>
+        <h2>Languages Currently Supported: EN,ZH,MS</h2>
+    </div>
+</header>
+<div class="container">
+    {% if ((checked_all is not none) and (checked_end is not none)) or ((checked_all is not defined) and (checked_end is not defined)) %}
+        {% set checked_all = "checked" %}
+    {% endif %}
+    <form action="{{url_for('lang_change')}}" method=POST>
+        <p>Enter punctuation type: </p>
+        <input type="radio" id="all" name="punc_type" value="all" {{ checked_all }}>
+          <label for='all'>All punctuations</label>
+        <input type="radio" id="period_only" name="punc_type" value="period" {{ checked_end }}> 
+          <label for='period_only'>Sentence endings only (fullstops)</label><br>
+        <input class="button" type='submit' value='Submit'>
+    </form>
+    <form onSubmit="return onPunctuate();">
+        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Enter Your Unpunctuated text Here</p>
+        <label>
+            <textarea id='unpunct' name="message" rows="10" cols="40" onkeypress="onSpacePress();"></textarea>
+        </label>
+        <br/>
+    <input class="button" type="submit" value="Punctuate">
+    </form>
+</div>
+<div class="results">
+    <h3 style="color:black;text-align: center;">
+        <b>Your punctuation is as follows:</b>
+    </h3>
+    <div class="card">
+        <h3 id='predtext' name='predtext' style="color:black;text-align: center;">
+            {{ prediction }}
+        </h3>
+    </div>
+</div>
+</body>
+<script>
+    function onSpacePress(){
+        let key = window.event.keyCode;
+        if(key != 32)return true;
+        else{
+            message = document.getElementById('unpunct').value
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = () => {         
+                    if (xhr.readyState == 4 && xhr.status == 200)
+                    {
+                        updateFormCallback(xhr.responseText); // Another callback here
+                    }
+                }
+            xhr.open("POST", "{{url_for('predict')}}", true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                message: message
+            }));
+            return false;
+        }
+    }
+    function onPunctuate(){
+        let message = document.getElementById('unpunct').value
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {         
+                    if (xhr.readyState == 4 && xhr.status == 200)
+                    {
+                        updateFormCallback(xhr.responseText); // Another callback here
+                    }
+            }
+        xhr.open("POST", "{{url_for('predict')}}", true);
+        console.log("here")
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+                message: message
+            }));
+        return false;
+    }
+    function updateFormCallback(text){
+        let parser = new DOMParser();
+        let htmlDoc = parser.parseFromString(text, 'text/html');
+        message = htmlDoc.getElementById("predtext").innerText;
+        message = sentenceCase(message,lowercaseBefore = false)
+        document.getElementById('predtext').innerHTML = message;
+    }
+
+    // credits: https://stackoverflow.com/questions/40669216/capitalize-words-after-each-dot-starting-of-a-string
+    function sentenceCase(input, lowercaseBefore) {
+    console.log(input);
+    input = ( input === undefined || input === null ) ? '' : input;
+    if (lowercaseBefore) { input = input.toLowerCase(); }
+    return input.toString().replace( /(^\s*|\. *|\? *)([a-z])/g, function(match, separator, char) {
+        return separator + char.toUpperCase();
+    });
+    }
+
+</script>
+</html>

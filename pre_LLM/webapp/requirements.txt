@@ -1,0 +1,8 @@
+dotmap
+numpy
+torch
+torch-optimizer
+transformers
+jieba
+flask
+waitress
