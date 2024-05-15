@@ -5,7 +5,7 @@ This repository contains the Final Year Project aimed at restoring punctuation u
 ## Table of Contents
 - [Introduction](#introduction)
 - [Project Structure](#project-structure)
-- 
+  
 ## Introduction
 
 The FYP project focuses on restoring punctuation in text using different language models. The project is divided into two main sections:
