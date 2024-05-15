@@ -69,8 +69,8 @@ if __name__ == '__main__':
 
     print(execution_time)
     '''
-    input_path = '/home/users/ntu/liuc0062/scratch/libriheavy/transcript_n_book/llama_dataset_test_0221_nogt_noprompt.txt'
-    output_path = '/home/users/ntu/liuc0062/scratch/libriheavy/transcript_n_book/llama_dataset_test_BERT7th_0228.txt'
+    input_path = 'path to unpunctuated input text file'
+    output_path = 'output text file path'
     with open(input_path,'r') as f1, open(output_path,'w') as f2:
         input_text = f1.readlines()
         output_text = []
